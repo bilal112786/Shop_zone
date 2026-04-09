@@ -24,11 +24,11 @@
     </div>
     <div>
     <h6 class="text-uppercase">phone</h6>
-    <p>123 456 789</p>
+    <p><a class="text-white text-decoration-none" href="tel:+923316551524">0331 6551 524</a></p>
     </div>
     <div>
     <h6 class="text-uppercase">Email</h6>
-    <p>info@email.com</p>
+    <p><a class="text-white text-decoration-none" href="mailto:shoppingzone@gmail.com">shoppingzone@gmail.com</a></p>
     </div>
 </div>
 <div class=" footer-one col-lg-3 col-md-6 col-sm-12 ">

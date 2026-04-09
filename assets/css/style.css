@@ -105,9 +105,13 @@ button:hover {
 
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar i:hover,
-.navbar-light .navbar-nav .nav-link.active .navbar-nav li,
 .navbar i:hover {
     color:coral;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: #fb774b;
+    font-weight: 600;
 }
 
 
@@ -611,6 +615,8 @@ button:hover {
 #contact span{
     color: #fb774b;
 }
+
+/* Contact page styles: assets/css/contact.css (loaded last on contact.php) */
 
 
 /* payment....easypaisa,jazzcash,bank account*/

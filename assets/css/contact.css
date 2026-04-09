@@ -1,0 +1,343 @@
+/**
+ * Contact page only — loaded AFTER Bootstrap + style.css + Font Awesome.
+ * All rules scoped to #sz-contact for reliable overrides.
+ */
+
+#sz-contact.contact-page {
+    padding-top: 5.5rem;
+    background: #f4f5f7;
+    min-height: 55vh;
+}
+
+#sz-contact .contact-banner {
+    background-image: linear-gradient(115deg, rgba(18, 18, 18, 0.92) 0%, rgba(35, 35, 35, 0.75) 40%, rgba(251, 119, 75, 0.45) 100%),
+        url("../images/a50b77389fcb82b74a35481f2ce4a83d.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+    padding: 3.25rem 0 5.25rem;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+}
+
+#sz-contact .contact-banner-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    color: #fb774b;
+    margin-bottom: 0.65rem;
+    font-weight: 700;
+}
+
+#sz-contact .contact-banner-title {
+    font-size: clamp(2.1rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    color: #fff;
+    letter-spacing: -0.02em;
+}
+
+#sz-contact .contact-banner-title span {
+    color: coral;
+}
+
+#sz-contact .contact-banner-lead {
+    max-width: 28rem;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+#sz-contact .contact-cards-shell {
+    position: relative;
+    z-index: 2;
+    margin-top: -3rem;
+    padding-bottom: 0.75rem;
+}
+
+#sz-contact .contact-section-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.02em;
+}
+
+/* Override global .fancy-hr on this page only */
+#sz-contact hr.contact-fancy-hr {
+    width: min(200px, 55%) !important;
+    max-width: 220px !important;
+    margin: 0.65rem auto 1.5rem !important;
+    opacity: 1 !important;
+    height: 4px !important;
+    border: none !important;
+    border-radius: 4px !important;
+    background: linear-gradient(90deg, #fb774b, #ffa07a, #fb774b) !important;
+}
+
+#sz-contact .contact-section-sub {
+    max-width: 34rem;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: #5a6169 !important;
+}
+
+#sz-contact .contact-cards-row {
+    margin-top: 0.15rem;
+}
+
+#sz-contact .contact-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2rem 1.6rem 1.75rem;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-top: 4px solid #fb774b;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#sz-contact .contact-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 56px rgba(0, 0, 0, 0.11);
+}
+
+#sz-contact .contact-card--whatsapp {
+    border-top-color: #25d366;
+    background: linear-gradient(165deg, #ffffff 0%, #f2fbf6 100%);
+}
+
+#sz-contact .contact-card-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(251, 119, 75, 0.22) 0%, rgba(251, 119, 75, 0.09) 100%);
+    color: #e85d35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.55rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 6px 18px rgba(251, 119, 75, 0.22);
+}
+
+#sz-contact .contact-card-icon--whatsapp {
+    background: linear-gradient(145deg, rgba(37, 211, 102, 0.3) 0%, rgba(37, 211, 102, 0.12) 100%);
+    color: #128c7e;
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.28);
+}
+
+#sz-contact .contact-card-title {
+    font-size: 1.22rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+    text-transform: capitalize;
+}
+
+#sz-contact .contact-card-text {
+    color: #5c636a;
+    font-size: 0.92rem;
+    margin-bottom: 1.4rem;
+    line-height: 1.65;
+    flex-grow: 1;
+}
+
+/* CTA pills — never Bootstrap default blue */
+#sz-contact a.contact-action,
+#sz-contact a.contact-action:link,
+#sz-contact a.contact-action:visited {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.85rem 1.15rem !important;
+    border-radius: 14px !important;
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    text-decoration: none !important;
+    border: 2px solid #fb774b !important;
+    color: #fb774b !important;
+    background-color: rgba(251, 119, 75, 0.08) !important;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease !important;
+    word-break: break-word;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#sz-contact a.contact-action:hover,
+#sz-contact a.contact-action:focus {
+    background-color: #fb774b !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(251, 119, 75, 0.38) !important;
+}
+
+#sz-contact .contact-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    text-decoration: none !important;
+    border: none !important;
+    cursor: pointer;
+    padding: 15px 24px !important;
+    border-radius: 14px !important;
+    transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease !important;
+    line-height: 1.35 !important;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+#sz-contact .contact-btn--in-card {
+    width: 100% !important;
+    margin-top: auto;
+}
+
+#sz-contact a.contact-btn--whatsapp,
+#sz-contact button.contact-btn--whatsapp,
+#sz-contact .contact-btn.contact-btn--whatsapp {
+    background-color: #25d366 !important;
+    background-image: none !important;
+    color: #fff !important;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4) !important;
+}
+
+#sz-contact a.contact-btn--whatsapp:hover,
+#sz-contact a.contact-btn--whatsapp:focus,
+#sz-contact button.contact-btn--whatsapp:hover,
+#sz-contact button.contact-btn--whatsapp:focus,
+#sz-contact .contact-btn.contact-btn--whatsapp:hover,
+#sz-contact .contact-btn.contact-btn--whatsapp:focus {
+    background-color: #1da851 !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.48) !important;
+}
+
+#sz-contact a.contact-btn--whatsapp:visited {
+    color: #fff !important;
+}
+
+#sz-contact .contact-btn--block {
+    width: 100% !important;
+}
+
+#sz-contact .contact-lower {
+    background: linear-gradient(180deg, #eceef2 0%, #e2e5eb 100%);
+    border-top: 1px solid #d5d8e0;
+    padding-bottom: 0.5rem;
+}
+
+#sz-contact .contact-panel {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2.1rem 2rem;
+    box-shadow: 0 14px 50px rgba(0, 0, 0, 0.09);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+#sz-contact .contact-hours {
+    background: linear-gradient(160deg, #fff 0%, #f7f8fa 100%);
+    border-radius: 20px;
+    padding: 2.1rem 2rem;
+    box-shadow: 0 14px 50px rgba(0, 0, 0, 0.07);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-left: 5px solid #fb774b;
+}
+
+#sz-contact .contact-panel-heading {
+    font-size: 1.38rem;
+    font-weight: 800;
+    margin-bottom: 0.45rem;
+    color: #1a1a1a;
+    letter-spacing: -0.02em;
+}
+
+#sz-contact .contact-hours-accent {
+    width: 56px;
+    height: 4px;
+    border: none;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #fb774b, #ffa07a);
+    opacity: 1;
+    margin: 0 0 1.15rem;
+}
+
+#sz-contact .contact-form-label {
+    font-weight: 600;
+    color: #2c2c2c;
+    margin-bottom: 0.55rem;
+    font-size: 0.95rem;
+}
+
+#sz-contact .contact-textarea {
+    border-radius: 14px !important;
+    border: 1px solid #cfd4dc !important;
+    resize: vertical;
+    min-height: 150px;
+    font-size: 0.95rem;
+    padding: 0.9rem 1.1rem !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+#sz-contact .contact-textarea:focus {
+    border-color: #fb774b !important;
+    box-shadow: 0 0 0 0.22rem rgba(251, 119, 75, 0.2) !important;
+    outline: none !important;
+}
+
+#sz-contact .contact-hours-highlight {
+    font-size: 1.05rem;
+    color: #333;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+}
+
+#sz-contact .contact-hours-highlight strong {
+    color: #fb774b;
+    font-weight: 800;
+}
+
+#sz-contact .contact-hours-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 0.7rem 0;
+    color: #444;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #ebebeb;
+}
+
+#sz-contact .contact-hours-list li:last-child {
+    border-bottom: none;
+}
+
+#sz-contact .contact-hours-list i {
+    color: #fb774b;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+    width: 1.3rem;
+    text-align: center;
+    font-size: 1.05rem;
+}
+
+@media only screen and (max-width: 767px) {
+    #sz-contact .contact-cards-shell {
+        margin-top: -1.75rem;
+    }
+
+    #sz-contact .contact-banner {
+        padding: 2.5rem 0 3.75rem;
+        min-height: 0;
+    }
+}

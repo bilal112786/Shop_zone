@@ -10,14 +10,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home</title>
-
-<link rel="stylesheet" href="assets/css/style.css">
+<title><?php echo isset($page_title) ? htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8') : 'Shopping Zone'; ?></title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
 
 
 <style>
@@ -35,6 +34,9 @@
 
 <!-- FontAwesome CDN -->
 <link rel="stylesheet" href="fontawesome-free-6.7.2-web/css/all.min.css">
+<?php if (!empty($load_contact_page_css)): ?>
+<link rel="stylesheet" href="assets/css/contact.css?v=<?php echo isset($contact_css_version) ? (int) $contact_css_version : 1; ?>">
+<?php endif; ?>
 </head>
 <body>
 
@@ -57,7 +59,7 @@
     </li>
    
     <li class="nav-item">
-        <a class="nav-link" href="contact.php">Contact Us</a>
+        <a class="nav-link<?php echo (!empty($nav_active) && $nav_active === 'contact') ? ' active' : ''; ?>" href="contact.php">Contact Us</a>
     </li>
     <li class="nav-item d-flex">
         <a class="nav-link" href="cart.php"><i class="fa-solid fa-cart-shopping">
