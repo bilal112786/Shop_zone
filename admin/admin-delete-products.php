@@ -23,15 +23,29 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
         if ($stmt->execute()) {
             product_image_unlink_all($product['product_image']);
-            header('Location: admin-products.php?success=Product deleted successfully');
+            $from = $_GET['from'] ?? '';
+            if ($from === 'home') {
+                $back = 'admin-home-products.php?success=Product deleted successfully';
+            } elseif ($from === 'shop') {
+                $back = 'admin-shop-products.php?success=Product deleted successfully';
+            } else {
+                $back = 'admin-products.php?success=Product deleted successfully';
+            }
+            header('Location: ' . $back);
             exit;
         }
-        header('Location: admin-products.php?error=Failed to delete product');
+        $from = $_GET['from'] ?? '';
+        $errBack = $from === 'home' ? 'admin-home-products.php' : ($from === 'shop' ? 'admin-shop-products.php' : 'admin-products.php');
+        header('Location: ' . $errBack . '?error=Failed to delete product');
         exit;
     }
-    header('Location: admin-products.php?error=Product not found');
+    $from = $_GET['from'] ?? '';
+    $nfBack = $from === 'home' ? 'admin-home-products.php' : ($from === 'shop' ? 'admin-shop-products.php' : 'admin-products.php');
+    header('Location: ' . $nfBack . '?error=Product not found');
     exit;
 }
 
-header('Location: admin-products.php?error=Invalid product ID');
+$from = $_GET['from'] ?? '';
+$invBack = $from === 'home' ? 'admin-home-products.php' : ($from === 'shop' ? 'admin-shop-products.php' : 'admin-products.php');
+header('Location: ' . $invBack . '?error=Invalid product ID');
 exit;

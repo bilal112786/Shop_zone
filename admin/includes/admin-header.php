@@ -7,8 +7,9 @@ if (!isset($pageTitle)) {
 if (!isset($navActive)) {
     $navActive = '';
 }
+$pagesNavOpen = in_array($navActive, ['page-home', 'page-shop'], true);
 $adminName = isset($_SESSION['admin_name']) ? htmlspecialchars((string) $_SESSION['admin_name'], ENT_QUOTES, 'UTF-8') : 'Admin';
-$adminCss = htmlspecialchars(admin_asset_url('admin-style.css?v=3'), ENT_QUOTES, 'UTF-8');
+$adminCss = htmlspecialchars(admin_asset_url('admin-style.css?v=7'), ENT_QUOTES, 'UTF-8');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,6 +41,26 @@ $adminCss = htmlspecialchars(admin_asset_url('admin-style.css?v=3'), ENT_QUOTES,
             <a class="admin-nav-link<?php echo $navActive === 'orders' ? ' is-active' : ''; ?>" href="<?php echo htmlspecialchars(admin_asset_url('admin-orders.php'), ENT_QUOTES, 'UTF-8'); ?>">
                 <span class="admin-nav-icon" aria-hidden="true">☰</span> Orders
             </a>
+            <details class="admin-nav-dropdown"<?php echo $pagesNavOpen ? ' open' : ''; ?>>
+                <summary class="admin-nav-summary<?php echo $pagesNavOpen ? ' is-active' : ''; ?>">
+                    <span class="admin-nav-icon" aria-hidden="true">▤</span> Pages
+                    <span class="admin-nav-chevron" aria-hidden="true"></span>
+                </summary>
+                <div class="admin-nav-submenu">
+                    <a class="admin-nav-link admin-nav-sublink<?php echo $navActive === 'page-home' ? ' is-active' : ''; ?>" href="<?php echo htmlspecialchars(admin_asset_url('admin-home-products.php'), ENT_QUOTES, 'UTF-8'); ?>">
+                        Home products
+                    </a>
+                    <a class="admin-nav-link admin-nav-sublink<?php echo $navActive === 'page-shop' ? ' is-active' : ''; ?>" href="<?php echo htmlspecialchars(admin_asset_url('admin-shop-products.php'), ENT_QUOTES, 'UTF-8'); ?>">
+                        Shop products
+                    </a>
+                    <a class="admin-nav-link admin-nav-sublink" href="<?php echo htmlspecialchars(storefront_url('index.php'), ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+                        View live home
+                    </a>
+                    <a class="admin-nav-link admin-nav-sublink" href="<?php echo htmlspecialchars(storefront_url('shop.php'), ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+                        View live shop
+                    </a>
+                </div>
+            </details>
         </nav>
         <div class="admin-sidebar-foot">
             <a class="admin-nav-link admin-nav-logout" href="<?php echo htmlspecialchars(admin_asset_url('logout.php'), ENT_QUOTES, 'UTF-8'); ?>">

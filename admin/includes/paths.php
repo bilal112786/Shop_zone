@@ -16,3 +16,19 @@ function admin_asset_url($file)
 
     return $dir . '/' . $file;
 }
+
+/**
+ * URL to the storefront (parent folder of admin), e.g. /ielts/index.php
+ */
+function storefront_url($file = 'index.php')
+{
+    $script = isset($_SERVER['SCRIPT_NAME']) ? (string) $_SERVER['SCRIPT_NAME'] : '';
+    $adminDir = dirname($script);
+    $adminDir = str_replace('\\', '/', $adminDir);
+    $root = dirname($adminDir);
+    $file = ltrim(str_replace('\\', '/', $file), '/');
+    if ($root === '/' || $root === '.' || $root === '') {
+        return '/' . $file;
+    }
+    return rtrim($root, '/') . '/' . $file;
+}

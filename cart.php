@@ -9,17 +9,19 @@ if (isset($_POST['add_to_cart'])) {
     $product_price = $_POST['product_price'];    
     $product_image = $_POST['product_image'];    
     $product_quantity = 1;    
+    $main_product_added = false;
 
     if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {        
         $product_array_ids = array_column($_SESSION['cart'], 'product_id');         
-        if (!in_array($product_id, $product_array_ids)) {            
+        if (!in_array((int) $product_id, array_map('intval', $product_array_ids), true)) {            
             $_SESSION['cart'][$product_id] = [                
                 'product_id'       => $product_id,                
                 'product_name'     => $product_name,                
                 'product_price'    => $product_price,                
                 'product_image'    => $product_image,                
                 'product_quantity' => $product_quantity            
-            ];        
+            ];
+            $main_product_added = true;
         } else {            
             echo "<script>alert('Product is already in the cart')</script>";        
         }     
@@ -30,9 +32,38 @@ if (isset($_POST['add_to_cart'])) {
             'product_price'    => $product_price,            
             'product_image'    => $product_image,            
             'product_quantity' => $product_quantity        
-        ];    
+        ];
+        $main_product_added = true;
     }     
     calculateTotalCart();  
+
+    if (
+        $main_product_added
+        && !empty($_POST['pair_home_product_id'])
+        && is_numeric($_POST['pair_home_product_id'])
+        && !empty($_POST['pair_home_product_name'])
+    ) {
+        $pair_id    = (int) $_POST['pair_home_product_id'];
+        $main_int   = (int) $product_id;
+        $pair_name  = $_POST['pair_home_product_name'];
+        $pair_price = $_POST['pair_home_product_price'];
+        $pair_image = $_POST['pair_home_product_image'] ?? '';
+        if ($pair_id > 0 && $pair_id !== $main_int) {
+            $cart_ids = isset($_SESSION['cart']) && is_array($_SESSION['cart'])
+                ? array_map('intval', array_column($_SESSION['cart'], 'product_id'))
+                : [];
+            if (!in_array($pair_id, $cart_ids, true)) {
+                $_SESSION['cart'][$pair_id] = [
+                    'product_id'       => $pair_id,
+                    'product_name'     => $pair_name,
+                    'product_price'    => $pair_price,
+                    'product_image'    => $pair_image,
+                    'product_quantity' => 1,
+                ];
+                calculateTotalCart();
+            }
+        }
+    }
 
 } elseif (isset($_POST['remove_product'])) {     
     $product_id = $_POST['product_id'];     

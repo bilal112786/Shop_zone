@@ -167,6 +167,84 @@ button:hover {
  color: coral;
 }
 
+/* Home — wide brands + kurta grids (container-fluid, banner-style width) */
+#brands.home-brands-wide .home-brand-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 6.5rem;
+    padding: 0.65rem 1rem;
+}
+
+#brands.home-brands-wide .home-brand-img {
+    max-height: 5.5rem;
+    max-width: min(100%, 22rem);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+@media (min-width: 768px) {
+    #brands.home-brands-wide .home-brand-img {
+        max-height: 6.25rem;
+        max-width: min(100%, 26rem);
+    }
+}
+
+@media (min-width: 992px) {
+    #brands.home-brands-wide .home-brand-cell {
+        min-height: 7.5rem;
+    }
+    #brands.home-brands-wide .home-brand-img {
+        max-height: 7rem;
+        max-width: min(100%, 30rem);
+    }
+}
+
+.home-kurta-section .product.product--home {
+    margin-bottom: 0;
+}
+
+/* Uniform image frame + aligned text row (home kurta grids) */
+.home-kurta-section .home-product-img-wrap {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #f1f3f5;
+    flex-shrink: 0;
+}
+
+.home-kurta-section .home-product-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.home-kurta-section .product.product--home:hover .home-product-img-wrap img {
+    opacity: 0.88;
+}
+
+.home-kurta-section .home-product-body {
+    min-height: 0;
+    padding-top: 0.75rem;
+}
+
+.home-kurta-section .home-product-stars i {
+    font-size: 0.9rem;
+    color: goldenrod;
+}
+
+/* Home kurta cards: “Select Design” only appears on card hover (same motion as .product .buy-btn) */
+
+.home-kurta-section h2 span {
+    color: coral;
+}
+
+/* Home kurta CTA: styles live in index.php <style> (.home-kurta-cta-row) so they override Bootstrap links */
+
 #new.one img{
     width: 100% ;
     height: 100%;

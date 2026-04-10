@@ -2,8 +2,12 @@
 include 'server/connection.php';
 require_once __DIR__ . '/server/product_image_helper.php';
 
-$category = 'kurta';
+$category = 'shop';
 $sliderMax = 15000;
+
+$home_pick_id = isset($_GET['home_pick']) && is_numeric($_GET['home_pick'])
+    ? max(0, (int) $_GET['home_pick'])
+    : 0;
 
 $rangeStmt = $conn->prepare('SELECT COALESCE(MIN(product_price), 0) AS mn FROM products WHERE product_category = ?');
 $rangeStmt->bind_param('s', $category);
@@ -54,9 +58,14 @@ $shopQuery = static function (array $params) {
 };
 
 $paginationBase = ['max_price' => $hasPriceFilter ? (string) (int) $sliderCurrent : null];
+if ($home_pick_id > 0) {
+    $paginationBase['home_pick'] = (string) $home_pick_id;
+}
 $paginationBase = array_filter($paginationBase, static function ($v) {
     return $v !== null && $v !== '';
 });
+
+$shopClearHref = 'shop.php' . ($home_pick_id > 0 ? '?home_pick=' . $home_pick_id : '');
 ?>
 
 <?php include 'layouts/header.php'; ?>
@@ -249,9 +258,12 @@ $paginationBase = array_filter($paginationBase, static function ($v) {
     <div class="col-lg-3 col-md-4 col-sm-12 mb-4">
       <div class="shop-filter-card">
         <h3>Filter</h3>
-        <p class="shop-filter-lead">Kurta collection — choose max budget from <strong>PKR <?php echo number_format($sliderMin); ?></strong> to <strong>PKR <?php echo number_format($sliderMax); ?></strong>. Apply to see products at or below that price.</p>
+        <p class="shop-filter-lead">Shop collection — choose max budget from <strong>PKR <?php echo number_format($sliderMin); ?></strong> to <strong>PKR <?php echo number_format($sliderMax); ?></strong>. Apply to see products at or below that price.</p>
 
         <form method="get" action="shop.php" id="shop-filter-form">
+          <?php if ($home_pick_id > 0): ?>
+          <input type="hidden" name="home_pick" value="<?php echo $home_pick_id; ?>">
+          <?php endif; ?>
           <span class="shop-filter-label">Max price (PKR)</span>
           <div class="shop-price-display">
             <span id="shop-price-live"><?php echo number_format($sliderCurrent); ?></span>
@@ -292,7 +304,7 @@ $paginationBase = array_filter($paginationBase, static function ($v) {
           <div class="shop-filter-actions">
             <button type="submit" class="shop-btn-apply">Apply filter</button>
             <?php if ($hasPriceFilter): ?>
-              <a class="shop-btn-reset" href="shop.php">Clear filter · show all prices</a>
+              <a class="shop-btn-reset" href="<?php echo htmlspecialchars($shopClearHref, ENT_QUOTES, 'UTF-8'); ?>">Clear filter · show all prices</a>
             <?php endif; ?>
           </div>
         </form>
@@ -301,14 +313,14 @@ $paginationBase = array_filter($paginationBase, static function ($v) {
 
     <div class="col-lg-9 col-md-8 col-sm-12">
       <section id="featured">
-        <h2><span>Kurta shop</span></h2>
+        <h2><span>Shop</span></h2>
 
         <div class="shop-results-banner">
           <?php if ($hasPriceFilter): ?>
-            Showing <strong><?php echo number_format($total_records); ?></strong> kurta<?php echo $total_records !== 1 ? 's' : ''; ?> with price up to <strong>PKR <?php echo number_format($sliderCurrent); ?></strong>
+            Showing <strong><?php echo number_format($total_records); ?></strong> product<?php echo $total_records !== 1 ? 's' : ''; ?> with price up to <strong>PKR <?php echo number_format($sliderCurrent); ?></strong>
             · Page <strong><?php echo $page_no; ?></strong> of <strong><?php echo $total_no_of_pages; ?></strong>
           <?php else: ?>
-            Showing <strong><?php echo number_format($total_records); ?></strong> kurta<?php echo $total_records !== 1 ? 's' : ''; ?> (all prices)
+            Showing <strong><?php echo number_format($total_records); ?></strong> product<?php echo $total_records !== 1 ? 's' : ''; ?> (all prices)
             · Page <strong><?php echo $page_no; ?></strong> of <strong><?php echo $total_no_of_pages; ?></strong>
           <?php endif; ?>
         </div>
@@ -317,11 +329,16 @@ $paginationBase = array_filter($paginationBase, static function ($v) {
           <?php if ($products->num_rows === 0): ?>
             <div class="col-12 shop-empty">
               <p class="mb-2"><strong>No products in this range.</strong></p>
-              <p class="mb-0">Try a higher amount (up to PKR <?php echo number_format($sliderMax); ?>) or <a href="shop.php">clear the filter</a> for all prices.</p>
+              <p class="mb-0">Try a higher amount (up to PKR <?php echo number_format($sliderMax); ?>) or <a href="<?php echo htmlspecialchars($shopClearHref, ENT_QUOTES, 'UTF-8'); ?>">clear the filter</a> for all prices.</p>
             </div>
           <?php else: ?>
-            <?php while ($product = $products->fetch_assoc()) { ?>
-            <div onclick="window.location.href='single_product.php?product_id=<?php echo (int) $product['product_id']; ?>'"
+            <?php while ($product = $products->fetch_assoc()) {
+                $single_product_url = 'single_product.php?product_id=' . (int) $product['product_id'];
+                if ($home_pick_id > 0) {
+                    $single_product_url .= '&home_pick=' . $home_pick_id;
+                }
+                ?>
+            <div onclick="window.location.href='<?php echo htmlspecialchars($single_product_url, ENT_QUOTES, 'UTF-8'); ?>'"
                  class="product text-center col-lg-3 col-md-4 col-sm-12 mb-4">
 
               <img class="img-fluid mb-3" src="./<?php echo htmlspecialchars(product_image_url($product['product_image']), ENT_QUOTES, 'UTF-8'); ?>" alt="">
@@ -336,7 +353,7 @@ $paginationBase = array_filter($paginationBase, static function ($v) {
 
               <h5 class="p-name"><?php echo htmlspecialchars($product['product_name'], ENT_QUOTES, 'UTF-8'); ?></h5>
               <h4 class="p-price">PKR <?php echo htmlspecialchars((string) $product['product_price'], ENT_QUOTES, 'UTF-8'); ?></h4>
-              <a href="single_product.php?product_id=<?php echo (int) $product['product_id']; ?>" class="btn buy-btn">Buy now</a>
+              <a href="<?php echo htmlspecialchars($single_product_url, ENT_QUOTES, 'UTF-8'); ?>" class="btn buy-btn">Buy now</a>
             </div>
             <?php } ?>
           <?php endif; ?>
